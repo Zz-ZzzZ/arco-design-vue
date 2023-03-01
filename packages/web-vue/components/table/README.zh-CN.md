@@ -112,6 +112,7 @@ description: 用于数据收集展示、分析整理、操作处理。
 |change|表格数据发生变化时触发|data: `TableData[]`<br>extra: `TableChangeExtra`<br>currentData: `TableData[]`|2.40.0 增加 currentData|
 |cell-click|点击单元格时触发|record: `TableData`<br>column: `TableColumnData`<br>ev: `Event`||
 |row-click|点击行数据时触发|record: `TableData`<br>ev: `Event`||
+|row-dbl-click|双击行数据时触发|record: `TableData`<br>ev: `Event`||
 |header-click|点击表头数据时触发|column: `TableColumnData`<br>ev: `Event`||
 |column-resize|调整列宽时触发|dataIndex: `string`<br>width: `number`|2.28.0|
 ### `<table>` Methods

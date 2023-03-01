@@ -508,6 +508,13 @@ export default defineComponent({
      */
     'rowClick': (record: TableData, ev: Event) => true,
     /**
+     * @zh 双击行数据时触发
+     * @en Triggered when row data is double-clicked
+     * @param {TableData} record
+     * @param {Event} ev
+     */
+    'rowDblClick': (record: TableData, ev: Event) => true,
+    /**
      * @zh 点击表头数据时触发
      * @en Triggered when the header data is clicked
      * @param {TableColumnData} column
@@ -1188,8 +1195,24 @@ export default defineComponent({
       }
     };
 
+    let timer: NodeJS.Timer | null = null;
+    const clearRowClickTimer = () => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+    };
+
     const handleRowClick = (record: TableDataWithRaw, ev: Event) => {
-      emit('rowClick', record.raw, ev);
+      if (!timer) {
+        timer = setTimeout(() => {
+          emit('rowClick', record.raw, ev);
+          clearRowClickTimer();
+        }, 500);
+      } else {
+        emit('rowDblClick', record.raw, ev);
+        clearRowClickTimer();
+      }
     };
 
     const handleCellClick = (
